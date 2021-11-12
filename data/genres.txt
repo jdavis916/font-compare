@@ -1,0 +1,14 @@
+Adventure
+Arcade
+Battle Royale
+Boardgame
+First-person shooter
+Massively-Multiplayer Online Role-Playing Game (MMORPG)
+Platformer
+Real-time strategy
+Role-playing game (RPG)
+Sandbox
+Simulation
+Survival
+Survival horror
+Text-Based

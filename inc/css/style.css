@@ -1,0 +1,60 @@
+.bd-placeholder-img {
+  font-size: 1.125rem;
+  text-anchor: middle;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  user-select: none;
+}
+
+@media (min-width: 768px) {
+  .bd-placeholder-img-lg {
+    font-size: 3.5rem;
+  }
+}
+header{
+  margin-bottom:  20px;
+}
+
+nav a {
+  color: #FFF;
+  text-decoration: none;
+}
+
+
+.pgHome figure{
+	display: inline-block;
+}
+
+/*Profile*/
+.picProfileWrapper{
+	text-align: center;
+}
+aside .figureWrapper label{
+  margin-top: 15px;
+  display: block;
+}
+/*aside .figureWrapper label:nth-child(2){
+  margin-left: 10px;
+}
+aside .figureWrapper label:nth-child(n+3){
+	display: block;
+}*/
+.secBio{
+	margin-top: 30px;
+}
+.secEditing{
+  margin-top: 30px;
+}
+
+/*Canvas*/
+main.cnvListPage{
+    width: 100vw;
+    height: 200vh;
+    z-index: 99;
+    position: absolute;
+  }
+canvas.bg{
+  position: fixed;
+  top: 0;
+  left: 0;
+}
