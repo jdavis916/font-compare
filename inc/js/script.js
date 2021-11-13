@@ -5,6 +5,9 @@ window.GlobalVars = window.GlobalVars || {};
 GlobalVars.user = {uid: 1};
 var user = GlobalVars.user;
 
+
+//
+
 document.addEventListener('DOMContentLoaded', (e) => {
 	homePage();
 	homePageIdx();
@@ -12,7 +15,23 @@ document.addEventListener('DOMContentLoaded', (e) => {
 	contactListPage();
 	loginPage();
 	profilePage();
+let btnFont = document.querySelector("#btnFont");
+let fontStr, hypLink, link = '';		
 
+btnFont.addEventListener('click', () =>{
+	if(document.getElementById('font1')){
+		document.getElementById('font1').remove();
+	}
+	fontStr = document.querySelector("#myFont").value;
+	hypLink = fontStr.match(/\".*?\"/);
+	let link = document.createElement("link");
+	link.setAttribute("src", hypLink[0].replace(/\"/g, ''));
+	link.setAttribute("rel", "stylesheet");
+	link.setAttribute("id", "font1");
+	document.head.appendChild(link);
+
+	console.log('btn clicked', hypLink[0]);
+});
 	function homePage(){
 		if(document.getElementById('bg')){
 			var scene = new THREE.Scene();

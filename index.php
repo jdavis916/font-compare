@@ -22,8 +22,8 @@
 					proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
 				</article>
 				<aside class="col-12 col-md-4">
-					<input type="text" name="" /><br/>
-					<button type="button" class="btn btnFont">Update</button>
+					<input type="text" name="myFont" id="myFont" /><br/>
+					<button type="button" class="btn btnFont" id="btnFont">Update</button>
 				</aside>
 				
 			</section>

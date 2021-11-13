@@ -13,6 +13,9 @@
   <link rel="icon" type="image/ico" href="inc/img/favicon.ico">
   <!-- Fake favicon -->
   <!-- <link rel="icon" href="data:;base64,iVBORw0KGgo="> -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  
 	<link rel="stylesheet" type="text/css" href="inc/css/bootstrap.min.css">
 	<link rel="stylesheet" type="text/css" href="inc/css/style.css">
   <!-- <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script> -->
