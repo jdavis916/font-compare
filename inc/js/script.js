@@ -9,30 +9,62 @@ var user = GlobalVars.user;
 //
 
 document.addEventListener('DOMContentLoaded', (e) => {
-	homePage();
-	homePageIdx();
-	contactPage();
-	contactListPage();
-	loginPage();
-	profilePage();
+	//homePage();
+	//homePageIdx();
+	//contactPage();
+	//contactListPage();
+	//loginPage();
+	//profilePage();
 let btnFont = document.querySelector("#btnFont");
-let fontStr, hypLink, link = '';		
+let fontStr, hypLink, link = '', fonts = [], families = [], weights = [];		
 
 btnFont.addEventListener('click', () =>{
+	applyLinkedFont()
+});
+
+
+
+function applyLinkedFont(){
 	if(document.getElementById('font1')){
 		document.getElementById('font1').remove();
 	}
+	fonts = [];
 	fontStr = document.querySelector("#myFont").value;
-	hypLink = fontStr.match(/\".*?\"/);
+
+	//isolates html link
+	hypLink = fontStr.match(/\".*?\"/).map((i)=>i.replace(/\"/g, ''));
+
+	//extracts font names from the html link
+	families = hypLink[0].match(/\=\w.+?\&/gi).map((i)=>i.replace(/[=&]/g,''));
+
+	//gets font weights
+	families.forEach((i)=>/\d+/.test(i) ? weights.push(i.match(/\d+/)) : weights.push(false));
+
+	for(let i = 0; i < families.length; i++){
+		fonts.push({
+			'family': families[i].match(/\w+/)[0],
+			'weight': +weights[i][0]
+		});
+	}
 	let link = document.createElement("link");
-	link.setAttribute("src", hypLink[0].replace(/\"/g, ''));
+	link.setAttribute("src", hypLink[0]);
 	link.setAttribute("rel", "stylesheet");
 	link.setAttribute("id", "font1");
 	document.head.appendChild(link);
 
-	console.log('btn clicked', hypLink[0]);
-});
-	function homePage(){
+	//applying the style to the paragraph
+	let para = document.querySelector("#myFont").parentElement.previousElementSibling.firstElementChild;
+	para.style.fontFamily = `${fonts[0].family}, sans-serif`;
+	para.style.fontWeight = `${fonts[0].weight || 500}`;
+	console.log('btn clicked', fonts, weights, para);
+}
+
+
+
+
+
+
+	/*function homePage(){
 		if(document.getElementById('bg')){
 			var scene = new THREE.Scene();
 			var camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
@@ -73,11 +105,11 @@ btnFont.addEventListener('click', () =>{
 
 			// Lights
 
-			/*var pointLight = new THREE.PointLight(0xffffff);
-			pointLight.position.set(5, 5, 5);
-
-			var ambientLight = new THREE.AmbientLight(0xffffff);
-			scene.add(pointLight, ambientLight);*/
+			//var pointLight = new THREE.PointLight(0xffffff);
+			//pointLight.position.set(5, 5, 5);
+//
+			//var ambientLight = new THREE.AmbientLight(0xffffff);
+			//scene.add(pointLight, ambientLight);
 
 			// Scroll Animation
 
@@ -106,7 +138,7 @@ btnFont.addEventListener('click', () =>{
 			animate();
 		}
 
-	}
+	}*/
 	function homePageIdx(){
 		if(document.getElementById('pgHome')){
 			var data = {
