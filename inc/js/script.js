@@ -6,29 +6,79 @@ GlobalVars.user = {uid: 1};
 var user = GlobalVars.user;
 
 var paraTemplate = '<div class="col-12 paraWrapper"><section class="row">'+
-				'<article class="col-12 col-md-8">'+
-					'<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod'+
-					'tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,'+
-					'quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo'+
-					'consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse'+
-					'cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non'+
-					'proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>'+
-				'</article>'+
-				'<aside class="col-12 col-md-4">'+
-					'<input type="text" name="" /><br/>'+
-					'<button type="button" class="btn btn-primary btnUpdate">Update</button>'+
-				'</aside>'+				
-			'</section></div>';
+    '<article class="col-12 col-md-8">'+
+    '<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod'+
+    'tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,'+
+    'quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo'+
+    'consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse'+
+    'cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non'+
+    'proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>'+
+    '</article>'+
+    '<aside class="col-12 col-md-4">'+
+    '<input type="text" name="" /><br/>'+
+    '<button type="button" class="btn btn-primary btnUpdate">Update</button>'+
+    '</aside>'+
+    '</section></div>';
 var head = document.querySelector('head');
-document.addEventListener('DOMContentLoaded', (e) => {
-	// homePage();
-	homePageIdx();
-	// contactPage();
-	// contactListPage();
-	// loginPage();
-	// profilePage();
+//
 
-	function homePage(){
+document.addEventListener('DOMContentLoaded', (e) => {
+	//homePage();
+	//homePageIdx();
+	//contactPage();
+	//contactListPage();
+	//loginPage();
+	//profilePage();
+let btnFont = document.querySelector("#btnFont");
+let fontStr, hypLink, link = '', fonts = [], families = [], weights = [];
+
+btnFont.addEventListener('click', () =>{
+	applyLinkedFont()
+});
+
+
+
+function applyLinkedFont(){
+	if(document.getElementById('font1')){
+		document.getElementById('font1').remove();
+	}
+	fonts = [];
+	fontStr = document.querySelector("#myFont").value;
+
+	//isolates html link
+	hypLink = fontStr.match(/\".*?\"/).map((i)=>i.replace(/\"/g, ''));
+
+	//extracts font names from the html link
+	families = hypLink[0].match(/\=\w.+?\&/gi).map((i)=>i.replace(/[=&]/g,''));
+
+	//gets font weights
+	families.forEach((i)=>/\d+/.test(i) ? weights.push(i.match(/\d+/)) : weights.push(false));
+
+	for(let i = 0; i < families.length; i++){
+		fonts.push({
+			'family': families[i].match(/\w+/)[0],
+			'weight': +weights[i][0]
+		});
+	}
+	let link = document.createElement("link");
+	link.setAttribute("src", hypLink[0]);
+	link.setAttribute("rel", "stylesheet");
+	link.setAttribute("id", "font1");
+	document.head.appendChild(link);
+
+	//applying the style to the paragraph
+	let para = document.querySelector("#myFont").parentElement.previousElementSibling.firstElementChild;
+	para.style.fontFamily = `${fonts[0].family}, sans-serif`;
+	para.style.fontWeight = `${fonts[0].weight || 500}`;
+	console.log('btn clicked', fonts, weights, para);
+}
+
+
+
+
+
+
+	/*function homePage(){
 		if(document.getElementById('bg')){
 			var scene = new THREE.Scene();
 			var camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
@@ -69,11 +119,11 @@ document.addEventListener('DOMContentLoaded', (e) => {
 
 			// Lights
 
-			/*var pointLight = new THREE.PointLight(0xffffff);
-			pointLight.position.set(5, 5, 5);
-
-			var ambientLight = new THREE.AmbientLight(0xffffff);
-			scene.add(pointLight, ambientLight);*/
+			//var pointLight = new THREE.PointLight(0xffffff);
+			//pointLight.position.set(5, 5, 5);
+//
+			//var ambientLight = new THREE.AmbientLight(0xffffff);
+			//scene.add(pointLight, ambientLight);
 
 			// Scroll Animation
 
@@ -102,7 +152,7 @@ document.addEventListener('DOMContentLoaded', (e) => {
 			animate();
 		}
 
-	}
+	}*/
 	function homePageIdx(){
 		if(document.getElementById('pgHome')){
 			var paraArea = document.querySelector('#paraArea');
