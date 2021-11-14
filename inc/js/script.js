@@ -5,13 +5,28 @@ window.GlobalVars = window.GlobalVars || {};
 GlobalVars.user = {uid: 1};
 var user = GlobalVars.user;
 
+var paraTemplate = '<div class="col-12 paraWrapper"><section class="row">'+
+				'<article class="col-12 col-md-8">'+
+					'<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod'+
+					'tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,'+
+					'quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo'+
+					'consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse'+
+					'cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non'+
+					'proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>'+
+				'</article>'+
+				'<aside class="col-12 col-md-4">'+
+					'<input type="text" name="" /><br/>'+
+					'<button type="button" class="btn btn-primary btnUpdate">Update</button>'+
+				'</aside>'+				
+			'</section></div>';
+var head = document.querySelector('head');
 document.addEventListener('DOMContentLoaded', (e) => {
-	homePage();
+	// homePage();
 	homePageIdx();
-	contactPage();
-	contactListPage();
-	loginPage();
-	profilePage();
+	// contactPage();
+	// contactListPage();
+	// loginPage();
+	// profilePage();
 
 	function homePage(){
 		if(document.getElementById('bg')){
@@ -90,28 +105,41 @@ document.addEventListener('DOMContentLoaded', (e) => {
 	}
 	function homePageIdx(){
 		if(document.getElementById('pgHome')){
+			var paraArea = document.querySelector('#paraArea');
+			var btnUpdate = document.querySelector('.btnUpdate');
+			var btnAdd = document.querySelector('#btnAdd');
 			var data = {
 				// meme: 'Condescending-Wonka',
 				// top: 'Topper',
 				// bottom: 'Botts'
 			};
 			//var path = "https://ronreiter-meme-generator.p.rapidapi.com/meme?meme=Condescending-Wonka&bottom=Bottom%20Text&top=Top%20Text&font=Impact&font_size=50";
-			var path = "https://ronreiter-meme-generator.p.rapidapi.com/images";
+			/*var path = "https://ronreiter-meme-generator.p.rapidapi.com/images";
 			var type = "GET";
 			var headers = {
 					"x-rapidapi-key": "6606126959mshaff6a308c09b990p1e81d5jsnb336cfd6f097",
 					"x-rapidapi-host": "ronreiter-meme-generator.p.rapidapi.com"
-			};
+			};*/
+			btnUpdate.addEventListener('click', function(){
+				console.log(head);
+				//let temp = document.createElement('')
+				//paraArea.innerHTML +=paraTemplate;
+			});
+			btnAdd.addEventListener('click', function(){
+				console.log(paraArea);
+				//let temp = document.createElement('')
+				paraArea.innerHTML +=paraTemplate;
+			});
 			/*
 			xhr.open("GET", "https://ronreiter-meme-generator.p.rapidapi.com/meme?meme=Condescending-Wonka&bottom=Bottom%20Text&top=Top%20Text&font=Impact&font_size=50");
 xhr.setRequestHeader("x-rapidapi-key", "6606126959mshaff6a308c09b990p1e81d5jsnb336cfd6f097");
 xhr.setRequestHeader("x-rapidapi-host", "ronreiter-meme-generator.p.rapidapi.com");
 			*/
-			xhttp(serializeObj(data), path, type, headers, function(info){
+			/*xhttp(serializeObj(data), path, type, headers, function(info){
 				var res = JSON.parse(info);
 				console.log(res);
 		   	//document.getElementById("txtArea").innerHTML = res.formType;
-			}); 
+			}); */
 		}
 	}
 	function cnvListPage(){

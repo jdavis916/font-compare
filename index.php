@@ -23,13 +23,15 @@
 				</article>
 				<aside class="col-12 col-md-4">
 					<input type="text" name="" /><br/>
-					<button type="button" class="btn btnFont">Update</button>
-				</aside>
-				
+					<button type="button" class="btn btn-primary btnUpdate">Update</button>
+				</aside>				
 			</section>
 		</div>
 	</section>
 	<section class="row">
+		<div col-12>
+			<button type="button" id="btnAdd" class="btn btn-info btnAdd"><i class="fas fa-plus-circle"></i></button>
+		</div>
 		<div col-12>
 			<button type="button" class="btn btn-success btnSave">Save Fonts</button>
 		</div>
