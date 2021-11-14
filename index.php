@@ -21,14 +21,14 @@
 					cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non
 					proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
 				</article>
-				<aside class="col-12 col-md-4">
+				<!-- <aside class="col-12 col-md-4">
 					<input type="text" name="myFont" id="myFont" /><br/>
 					<button type="button" class="btn btnFont" id="btnFont">Update</button>
-				</aside>
-       <!-- <aside class="col-12 col-md-4">
-          <input type="text" name="" /><br/>
+				</aside> -->
+        <aside class="col-12 col-md-4">
+          <input type="text" name="" class="inpFont"/><br/>
           <button type="button" class="btn btn-primary btnUpdate">Update</button>
-        </aside>-->
+        </aside>
 			</section>
 		</div>
 	</section>
