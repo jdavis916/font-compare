@@ -5,22 +5,36 @@ window.GlobalVars = window.GlobalVars || {};
 GlobalVars.user = {uid: 1};
 var user = GlobalVars.user;
 
-
+var paraTemplate = '<div class="col-12 paraWrapper"><section class="row">'+
+    '<article class="col-12 col-md-8">'+
+    '<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod'+
+    'tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,'+
+    'quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo'+
+    'consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse'+
+    'cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non'+
+    'proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>'+
+    '</article>'+
+    '<aside class="col-12 col-md-4">'+
+    '<input type="text" name="" class="inpFont"/><br/>'+
+    '<button type="button" class="btn btn-primary btnUpdate">Update</button>'+
+    '</aside>'+
+    '</section></div>';
+var head = document.querySelector('head');
 //
 
 document.addEventListener('DOMContentLoaded', (e) => {
-	//homePage();
-	//homePageIdx();
+	homePage();
 	//contactPage();
 	//contactListPage();
 	//loginPage();
 	//profilePage();
-let btnFont = document.querySelector("#btnFont");
-let fontStr, hypLink, link = '', fonts = [], families = [], weights = [];		
+// let btnFont = document.querySelector("#btnFont");
+let fontStr, hypLink, link = '', fonts = [], families = [], weights = [];
 
-btnFont.addEventListener('click', () =>{
+/*btnFont.addEventListener('click', () =>{
 	applyLinkedFont()
-});
+});*/
+
 
 
 
@@ -28,8 +42,14 @@ function applyLinkedFont(){
 	if(document.getElementById('font1')){
 		document.getElementById('font1').remove();
 	}
+	//find input related to this button
+	var inpFont = this.previousElementSibling.previousElementSibling;
+	// console.log(inpFont);
 	fonts = [];
-	fontStr = document.querySelector("#myFont").value;
+	fontStr = inpFont.value;
+	// console.log(fontStr);
+
+	//chris pick up from here
 
 	//isolates html link
 	hypLink = fontStr.match(/\".*?\"/).map((i)=>i.replace(/\"/g, ''));
@@ -59,110 +79,62 @@ function applyLinkedFont(){
 	console.log('btn clicked', fonts, weights, para);
 }
 
-
-
-
-
-
-	/*function homePage(){
-		if(document.getElementById('bg')){
-			var scene = new THREE.Scene();
-			var camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
-			var renderer = new THREE.WebGLRenderer({
-				canvas: document.querySelector('#bg')
-			});
-			//console.log(scene);
-			renderer.setPixelRatio(window.devicePixelRatio);
-			renderer.setSize(window.innerWidth, window.innerHeight);
-			camera.position.setZ(30);
-			camera.position.setX(10);
-
-			//Cube
-			var textureLoader = new THREE.TextureLoader();                             
-			var img = textureLoader.load( 'inc/img/profile.png' );   
-			var geometry = new THREE.BoxGeometry(3, 4, 3);
-			//var material = new THREE.MeshBasicMaterial({color: 0xFF6347})
-			var material = [
-				new THREE.MeshBasicMaterial({color: 0xFF6347}),
-				new THREE.MeshBasicMaterial({color: 0xFF6347}),
-				new THREE.MeshBasicMaterial({color: 0xFF6347}),
-				new THREE.MeshBasicMaterial({color: 0xFF6347}),
-				new THREE.MeshBasicMaterial({
-					map: img
-				}),
-				new THREE.MeshBasicMaterial({color: 0xFF6347}),
-			];
-			var cube = new THREE.Mesh(geometry, material);
-			cube.rotation.y += 0.3;
-			scene.add(cube);
-
-			//Torus
-			var geometry = new THREE.TorusGeometry(10, 3, 16, 100);
-			var material = new THREE.MeshBasicMaterial({color: 0xFF6347, wireframe: true});
-			var torus = new THREE.Mesh(geometry, material);
-
-			// scene.add(torus);
-
-			// Lights
-
-			//var pointLight = new THREE.PointLight(0xffffff);
-			//pointLight.position.set(5, 5, 5);
-//
-			//var ambientLight = new THREE.AmbientLight(0xffffff);
-			//scene.add(pointLight, ambientLight);
-
-			// Scroll Animation
-
-			function moveCamera() {
-			  var t = document.body.getBoundingClientRect().top;
-        camera.position.z = t * -0.01;
-			  camera.position.x = t * -0.0002;
-			  camera.rotation.y = t * -0.0002;
-			}
-
-			document.body.onscroll = moveCamera;
-			moveCamera();
-
-			function animate(){
-				requestAnimationFrame(animate);
-
-				// torus.rotation.x += 0.01;
-				// torus.rotation.y += 0.005;
-				// torus.rotation.z += 0.01;
-				cube.rotation.x += 0.01;
-				cube.rotation.y += 0.02;
-				cube.rotation.z += 0.01;
-				renderer.render(scene, camera);
-			}
-
-			animate();
-		}
-
-	}*/
-	function homePageIdx(){
+	function homePage(){
 		if(document.getElementById('pgHome')){
+			var paraArea = document.querySelector('#paraArea');
+			//var btnUpdate = document.querySelector('.btnUpdate');
+			var btnUpdate = document.getElementsByClassName('btnUpdate');
+			var btnAdd = document.querySelector('#btnAdd');
+			Array.from(btnUpdate).forEach(function(e){
+				e.addEventListener('click', applyLinkedFont);
+			});
 			var data = {
 				// meme: 'Condescending-Wonka',
 				// top: 'Topper',
 				// bottom: 'Botts'
 			};
 			//var path = "https://ronreiter-meme-generator.p.rapidapi.com/meme?meme=Condescending-Wonka&bottom=Bottom%20Text&top=Top%20Text&font=Impact&font_size=50";
-			var path = "https://ronreiter-meme-generator.p.rapidapi.com/images";
+			/*var path = "https://ronreiter-meme-generator.p.rapidapi.com/images";
 			var type = "GET";
 			var headers = {
 					"x-rapidapi-key": "6606126959mshaff6a308c09b990p1e81d5jsnb336cfd6f097",
 					"x-rapidapi-host": "ronreiter-meme-generator.p.rapidapi.com"
-			};
+			};*/
+			//console.log('tester');
+
+			// Add New Paragraph Button
+			btnAdd.addEventListener('click', function(){
+				// console.log(paraArea);
+				//let temp = document.createElement('')
+				paraArea.innerHTML += paraTemplate;
+				Array.from(btnUpdate).forEach(function(e){
+					// e.addEventListener('click', updateFont);
+					e.addEventListener('click', applyLinkedFont);
+				});
+				// console.log(paraArea.lastChild);
+			});
+			
+			function updateFont(){
+				console.log('update function added');
+				console.log(this);
+				var parent = this.parentNode;
+				var parent2 = parent.parentNode;
+				console.log(parent);
+				console.log(parent2);
+				// console.log(head);
+					//let temp = document.createElement('')
+					//paraArea.innerHTML +=paraTemplate;
+			}
 			/*
 			xhr.open("GET", "https://ronreiter-meme-generator.p.rapidapi.com/meme?meme=Condescending-Wonka&bottom=Bottom%20Text&top=Top%20Text&font=Impact&font_size=50");
 xhr.setRequestHeader("x-rapidapi-key", "6606126959mshaff6a308c09b990p1e81d5jsnb336cfd6f097");
 xhr.setRequestHeader("x-rapidapi-host", "ronreiter-meme-generator.p.rapidapi.com");
 			*/
-			xhttp(serializeObj(data), path, type, headers, function(info){
+			/*xhttp(serializeObj(data), path, type, headers, function(info){
 				var res = JSON.parse(info);
 				console.log(res);
 		   	//document.getElementById("txtArea").innerHTML = res.formType;
-			}); 
+			}); */
 		}
 	}
 	function cnvListPage(){
