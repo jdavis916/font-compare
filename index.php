@@ -28,6 +28,8 @@
         <aside class="col-12 col-md-4">
           <input type="text" name="" class="inpFont"/><br/>
           <button type="button" class="btn btn-primary btnUpdate">Update</button>
+          <button type="button" class="incSize"><i class="fas fa-arrow-circle-up"></i></button>
+		  <button type="button" class="decSize"><i class="fas fa-arrow-circle-down"></i></button>
         </aside>
 			</section>
 		</div>
