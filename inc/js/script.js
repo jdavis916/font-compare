@@ -17,6 +17,8 @@ var paraTemplate = '<div class="col-12 paraWrapper"><section class="row">'+
     '<aside class="col-12 col-md-4">'+
     '<input type="text" name="" class="inpFont"/><br/>'+
     '<button type="button" class="btn btn-primary btnUpdate">Update</button>'+
+    '<button type="button" class="incSize"><i class="fas fa-arrow-circle-up"></i></button>'+
+    '<button type="button" class="decSize"><i class="fas fa-arrow-circle-down"></i></button>'+
     '</aside>'+
     '</section></div>';
 var head = document.querySelector('head');
@@ -101,6 +103,26 @@ function applyLinkedFont(){
 	}
 }
 
+//increases font size
+function incFont(){
+	let para = this.parentElement.previousElementSibling.firstElementChild;
+	//let fontSize = para.style.fontSize;
+	var style = window.getComputedStyle(para, null).getPropertyValue('font-size');
+	var fontSize = parseFloat(style);
+	console.log(fontSize);
+	para.style.fontSize = fontSize + 1 + 'px';
+	//console.log('inc clicked! font size: ' + fontSize + '. target: ' + para);
+}
+
+//decreases font size
+function decFont(){
+	let para = this.parentElement.previousElementSibling.firstElementChild;
+	var style = window.getComputedStyle(para, null).getPropertyValue('font-size');
+	var fontSize = parseFloat(style);
+	console.log(fontSize);
+	para.style.fontSize = fontSize - 1 + 'px';
+	//console.log('dec clicked! font size: ' + fontSize + '. target: ' + para.);
+}
 	//removes duplicate link elements
 	
 	function homePage(){
@@ -109,10 +131,18 @@ function applyLinkedFont(){
 			var paraArea = document.querySelector('#paraArea');
 			//var btnUpdate = document.querySelector('.btnUpdate');
 			var btnUpdate = document.getElementsByClassName('btnUpdate');
+			var btnInc = document.getElementsByClassName('incSize');
+			var btnDec = document.getElementsByClassName('decSize');
 			var btnAdd = document.querySelector('#btnAdd');
 			
 			Array.from(btnUpdate).forEach(function(e){
 				e.addEventListener('click', applyLinkedFont);
+			});
+			Array.from(btnInc).forEach(function(e){
+				e.addEventListener('click', incFont);
+			});
+			Array.from(btnDec).forEach(function(e){
+				e.addEventListener('click', decFont);
 			});
 			var data = {
 				// meme: 'Condescending-Wonka',
@@ -136,6 +166,12 @@ function applyLinkedFont(){
 				Array.from(btnUpdate).forEach(function(e){
 					// e.addEventListener('click', updateFont);
 					e.addEventListener('click', applyLinkedFont);
+				});
+				Array.from(btnInc).forEach(function(e){
+					e.addEventListener('click', incFont);
+				});
+				Array.from(btnDec).forEach(function(e){
+					e.addEventListener('click', decFont);
 				});
 				// console.log(paraArea.lastChild);
 			});
