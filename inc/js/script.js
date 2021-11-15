@@ -29,7 +29,7 @@ document.addEventListener('DOMContentLoaded', (e) => {
 	//loginPage();
 	//profilePage();
 // let btnFont = document.querySelector("#btnFont");
-let fontStr, hypLink, link = '', fonts = [], families = [], weights = [];
+let fontStr, hypLink, link = '', font, family, weight;
 
 /*btnFont.addEventListener('click', () =>{
 	applyLinkedFont()
@@ -37,54 +37,80 @@ let fontStr, hypLink, link = '', fonts = [], families = [], weights = [];
 
 
 
-
+var count = 0;
 function applyLinkedFont(){
-	if(document.getElementById('font1')){
-		document.getElementById('font1').remove();
-	}
+	/*if(document.getElementById(`font${count}`)){
+		document.getElementById(`font${count}`).remove();
+	}*/
+
+	//var fontCheck = false;
+
 	//find input related to this button
 	var inpFont = this.previousElementSibling.previousElementSibling;
 	// console.log(inpFont);
-	fonts = [];
 	fontStr = inpFont.value;
 	// console.log(fontStr);
-
+	
 	//chris pick up from here
 
-	//isolates html link
-	hypLink = fontStr.match(/\".*?\"/).map((i)=>i.replace(/\"/g, ''));
+		//isolates html link
+		hypLink = fontStr.match(/(?<=\")(.*)(?="\s)/g)[0];
+		console.log('1' +  ' ' + hypLink);
+		console.log('2' +  ' ' + hypLink);
+		if(remDupes(hypLink)){
+			this.innerHTML = 'Font Already Linked!';
+			return;
+		}else{
+			count++;
+			console.log('count plus one');
+		//gets rid of the extra quotes
+			console.log('link before: ' + hypLink);
+			
+			console.log('link after: ' + hypLink);
+		//extracts font names from the html link
+		family = hypLink.match(/\=\w.+?\&/gi)[0].replace(/[=&]/g,'').replace('+', ' ');
+		console.log('font: ' + family);
+		//adds the font weight to the weight
+		/\d+/.test(family) ? weight = family.match(/\d+/)[0] : weight = false;
+			
+		family.replace(/:wght@\d+/, '');
+		console.log(/*'font: ' + family*/);
 
-	//extracts font names from the html link
-	families = hypLink[0].match(/\=\w.+?\&/gi).map((i)=>i.replace(/[=&]/g,''));
+		//structuring font data
+		font = {
+			'weight': +weight
+		};
+		//accounting for weird font names (font names with spaces)
+		family.match(/\w+\s\w+/) ? font.family = family.match(/\w+\s\w+/)[0] : font.family = family.match(/\w+/)[0];
+		console.log('btn clicked', font, weight);
+		console.log(hypLink);
+		//creating the link tag
+		let link = document.createElement("link");
+		console.log(font);
+		link.setAttribute("href", hypLink);
+		link.setAttribute("rel", "stylesheet");
+		link.setAttribute("id", `font${count}`);
+		document.head.appendChild(link);
+		
 
-	//gets font weights
-	families.forEach((i)=>/\d+/.test(i) ? weights.push(i.match(/\d+/)) : weights.push(false));
-
-	for(let i = 0; i < families.length; i++){
-		fonts.push({
-			'family': families[i].match(/\w+/)[0],
-			'weight': +weights[i][0]
-		});
+		//applying the style to the paragraph
+		let para = this.parentElement.previousElementSibling.firstElementChild;
+		para.style.fontFamily = `${font.family}, sans-serif`;
+		para.style.fontWeight = `${font.weight || 500}`;
+		
 	}
-	let link = document.createElement("link");
-	link.setAttribute("src", hypLink[0]);
-	link.setAttribute("rel", "stylesheet");
-	link.setAttribute("id", "font1");
-	document.head.appendChild(link);
-
-	//applying the style to the paragraph
-	let para = document.querySelector("#myFont").parentElement.previousElementSibling.firstElementChild;
-	para.style.fontFamily = `${fonts[0].family}, sans-serif`;
-	para.style.fontWeight = `${fonts[0].weight || 500}`;
-	console.log('btn clicked', fonts, weights, para);
 }
 
+	//removes duplicate link elements
+	
 	function homePage(){
+		console.log(document.getElementsByTagName('link')[0].attributes.href.value);
 		if(document.getElementById('pgHome')){
 			var paraArea = document.querySelector('#paraArea');
 			//var btnUpdate = document.querySelector('.btnUpdate');
 			var btnUpdate = document.getElementsByClassName('btnUpdate');
 			var btnAdd = document.querySelector('#btnAdd');
+			
 			Array.from(btnUpdate).forEach(function(e){
 				e.addEventListener('click', applyLinkedFont);
 			});
@@ -137,6 +163,20 @@ xhr.setRequestHeader("x-rapidapi-host", "ronreiter-meme-generator.p.rapidapi.com
 			}); */
 		}
 	}
+
+	function remDupes(arg){
+		let linkEls = document.getElementsByTagName('link');
+console.log(linkEls);
+		for(let i = 0; i < linkEls.length; i++){
+			
+			console.table(arg + ' vs.: ' + linkEls[i].href);
+			if(linkEls[i].href.includes/*.attributes.href.value.*/(arg)){
+				return true;
+			}
+		}
+		return false
+	}
+
 	function cnvListPage(){
 		if(document.getElementById('cnvListPage')){
 
