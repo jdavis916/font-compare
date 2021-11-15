@@ -102,27 +102,17 @@ function applyLinkedFont(){
 		
 	}
 }
-
-//increases font size
-function incFont(){
+function changeFont(num){
+  console.log(this);
 	let para = this.parentElement.previousElementSibling.firstElementChild;
 	//let fontSize = para.style.fontSize;
 	var style = window.getComputedStyle(para, null).getPropertyValue('font-size');
 	var fontSize = parseFloat(style);
 	console.log(fontSize);
-	para.style.fontSize = fontSize + 1 + 'px';
+	para.style.fontSize = (fontSize + num) + 'px';
 	//console.log('inc clicked! font size: ' + fontSize + '. target: ' + para);
 }
 
-//decreases font size
-function decFont(){
-	let para = this.parentElement.previousElementSibling.firstElementChild;
-	var style = window.getComputedStyle(para, null).getPropertyValue('font-size');
-	var fontSize = parseFloat(style);
-	console.log(fontSize);
-	para.style.fontSize = fontSize - 1 + 'px';
-	//console.log('dec clicked! font size: ' + fontSize + '. target: ' + para.);
-}
 	//removes duplicate link elements
 	
 	function homePage(){
@@ -139,10 +129,10 @@ function decFont(){
 				e.addEventListener('click', applyLinkedFont);
 			});
 			Array.from(btnInc).forEach(function(e){
-				e.addEventListener('click', incFont);
+				e.addEventListener('click', changeFont.bind(e,1));
 			});
 			Array.from(btnDec).forEach(function(e){
-				e.addEventListener('click', decFont);
+				e.addEventListener('click', changeFont.bind(e,-1));
 			});
 			var data = {
 				// meme: 'Condescending-Wonka',
@@ -168,10 +158,10 @@ function decFont(){
 					e.addEventListener('click', applyLinkedFont);
 				});
 				Array.from(btnInc).forEach(function(e){
-					e.addEventListener('click', incFont);
+					e.addEventListener('click', changeFont.bind(e,1));
 				});
 				Array.from(btnDec).forEach(function(e){
-					e.addEventListener('click', decFont);
+					e.addEventListener('click', changeFont.bind(e,-1));
 				});
 				// console.log(paraArea.lastChild);
 			});
